@@ -1,0 +1,19 @@
+{
+  "name": "note_taker",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jwickster/Note_Taker.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jwickster/Note_Taker/issues"
+  },
+  "homepage": "https://github.com/jwickster/Note_Taker#readme"
+}
