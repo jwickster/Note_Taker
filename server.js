@@ -19,7 +19,7 @@ app.use(express.static(path.join(__dirname, "Develop/public")));
 app.get("/api/notes", function(err, res) {
   try {
     // reads the notes from json file
-    dataNotes = fs.readFileSync("Develop/db/db.json", "utf8");
+    dataNotes = fs.readFileSync("/db.json", "utf8");
     console.log("hello!");
     // parse it so dataNotes is an array of objects
     dataNotes = JSON.parse(dataNotes);
@@ -48,11 +48,11 @@ app.post("/api/notes", function(req, res) {
     // make it string(stringify)so you can write it to the file
     dataNotes = JSON.stringify(dataNotes);
     // writes the new note to file
-    fs.writeFile("./Develop/db/db.json", dataNotes, "utf8", function(err) {
+    fs.writeFile("./db/db.json", dataNotes, "utf8", function(err) {
       // error handling
       if (err) throw err;
     });
-    // changeit back to an array of objects & send it back to the browser(client)
+    // change back to an array of objects & send it back to the browser(client)
     res.json(JSON.parse(dataNotes));
     
     // error Handling
@@ -67,17 +67,15 @@ app.post("/api/notes", function(req, res) {
 app.delete("/api/notes/:id", function(req, res) {
   try {
     //  reads the json file
-    dataNotes = fs.readFileSync("/db/db.json", "utf8");
+    dataNotes = fs.readFileSync("./db/db.json", "utf8");
     // parse the data to get an array of the objects
     dataNotes = JSON.parse(dataNotes);
     // delete the old note from the array on note objects
-    dataNotes = dataNotes.filter(function(note) {
-      return note.id != req.params.id;
-    });
+    dataNotes = dataNotes.filter(note => note.id != req.params.id);
     // make it string(stringify)so you can write it to the file
     dataNotes = JSON.stringify(dataNotes);
     // write the new notes to the file
-    fs.writeFile("/db/db.json", dataNotes, "utf8", function(err) {
+    fs.writeFile("./db/db.json", dataNotes, "utf8", function(err) {
       // error handling
       if (err)
         throw err;
@@ -97,16 +95,16 @@ app.delete("/api/notes/:id", function(req, res) {
 
 // Web page when the Get started button is clicked
 app.get("/notes", function(req, res) {
-  res.sendFile(path.join(__dirname, "Develop/public/notes.html"));
+  res.sendFile(path.join(__dirname, "./notes.html"));
 });
 
 // If no matching route is found default to home
 app.get("*", function(req, res) {
-  res.sendFile(path.join(__dirname, "Develop/public/index.html"));
+  res.sendFile(path.join(__dirname, "./index.html"));
 });
 
 app.get("/api/notes", function(req, res) {
-  return res.sendFile(path.json(__dirname, "Develop/db/db.json"));
+  return res.sendFile(path.json(__dirname, "./db/db.json"));
 });
 
 // Start the server on the port
