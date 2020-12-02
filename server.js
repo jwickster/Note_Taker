@@ -63,7 +63,6 @@ app.post("/api/notes", function(req, res) {
 });
 
 // Delete a note
-
 app.delete("/api/notes/:id", function(req, res) {
   try {
     //  reads the json file
@@ -71,7 +70,9 @@ app.delete("/api/notes/:id", function(req, res) {
     // parse the data to get an array of the objects
     dataNotes = JSON.parse(dataNotes);
     // delete the old note from the array on note objects
-    dataNotes = dataNotes.filter(note => note.id != req.params.id);
+    dataNotes = dataNotes.filter(note => {
+      return note.id != req.params.id;
+    });
     // make it string(stringify)so you can write it to the file
     dataNotes = JSON.stringify(dataNotes);
     // write the new notes to the file
@@ -86,15 +87,15 @@ app.delete("/api/notes/:id", function(req, res) {
     
     // error handling
   } catch (err) {
-    throw err;
-    console.log(err);
+      throw err;
+      console.log(err);
   }
 });
 
-// HTML GET Requests
+
 
 // Web page when the Get started button is clicked
-app.get("/notes", function(req, res) {
+app.get("/api/notes", function(req, res) {
   res.sendFile(path.join(__dirname, "./notes.html"));
 });
 
