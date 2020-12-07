@@ -6,7 +6,7 @@ var $noteList = $(".list-container .list-group");
 
 let activeNote = {};
 
-//pull notes from database
+//pull notes
 var getNotes = function() {
   return $.ajax({
     url: '/api/notes',
